@@ -6,14 +6,17 @@
 //  Copyright © 2015 mobex. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "BNRAppDelegate.h"
 #import "BNRHypnosisView.h"
+#import "BNRHypnosisViewController.h"
+#import "BNRReminderViewController.h"
 
-@interface AppDelegate ()
+
+@interface BNRAppDelegate ()
 
 @end
 
-@implementation AppDelegate
+@implementation BNRAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -24,10 +27,17 @@
     
     BNRHypnosisView *firstView = [[BNRHypnosisView alloc] initWithFrame:firstFrame];
         
-    UIViewController *myView = [[UIViewController alloc] init];
+    //UIViewController *myView = [[UIViewController alloc] init];
+    BNRHypnosisViewController *hvc = [[BNRHypnosisViewController alloc] init];
     
+    NSBundle *appBundle = [NSBundle mainBundle];
     
-    [self.window setRootViewController:myView];
+    BNRReminderViewController *rvc = [[BNRReminderViewController alloc] initWithNibName:@"BNRReminderViewController"
+                                                                                 bundle:appBundle];
+    
+    self.window.rootViewController = rvc;
+    
+    //[self.window setRootViewController:myView];
     [self.window addSubview:firstView];
     
 
