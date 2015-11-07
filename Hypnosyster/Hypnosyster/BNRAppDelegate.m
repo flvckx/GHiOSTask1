@@ -22,17 +22,13 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    CGRect firstFrame = self.window.bounds;
+    //CGRect firstFrame = self.window.bounds;
     
-    BNRHypnosisView *firstView = [[BNRHypnosisView alloc] initWithFrame:firstFrame];
+    //BNRHypnosisView *firstView = [[BNRHypnosisView alloc] initWithFrame:firstFrame];
         
-    //UIViewController *myView = [[UIViewController alloc] init];
     BNRHypnosisViewController *hvc = [[BNRHypnosisViewController alloc] init];
     
-    NSBundle *appBundle = [NSBundle mainBundle];
-    
-    BNRReminderViewController *rvc = [[BNRReminderViewController alloc] initWithNibName:@"BNRReminderViewController"
-                                                                                 bundle:appBundle];
+    BNRReminderViewController *rvc = [[BNRReminderViewController alloc] init];
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
     tabBarController.viewControllers = @[hvc, rvc];
@@ -40,9 +36,23 @@
     self.window.rootViewController = tabBarController;
     
     //[self.window setRootViewController:myView];
-    [self.window addSubview:firstView];
+    //[self.window addSubview:firstView];
+    CGRect screenRect = self.window.bounds;
+    CGRect bigRect = screenRect;
+    bigRect.size.width *= 2.0;
     
-
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:screenRect];
+    scrollView.pagingEnabled = YES;
+    [self.window addSubview:scrollView];
+    
+    BNRHypnosisView *hypnosisView = [[BNRHypnosisView alloc] initWithFrame:screenRect];
+    [scrollView addSubview:hypnosisView];
+    
+    screenRect.origin.x += screenRect.size.width;
+    BNRHypnosisView *anotherView = [[BNRHypnosisView alloc] initWithFrame:screenRect];
+    [scrollView addSubview:anotherView];
+    
+    scrollView.contentSize = bigRect.size;
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
